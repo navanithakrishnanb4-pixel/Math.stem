@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Gauss Seidel Method</title>
+
+<style>
+body{
+margin:0;
+font-family:Segoe UI;
+background:linear-gradient(135deg,#2f5e53,#8bd3a6);
+display:flex;
+flex-direction:column;
+align-items:center;
+height:100vh;
+}
+
+h1{
+color:white;
+margin-top:60px;
+}
+
+.card{
+background:white;
+padding:40px;
+width:650px;
+border-radius:12px;
+margin-top:40px;
+text-align:center;
+}
+
+input{
+padding:10px;
+margin:10px;
+width:120px;
+}
+
+button{
+padding:10px 20px;
+background:#1f4b3e;
+color:white;
+border:none;
+border-radius:8px;
+}
+
+.result{
+margin-top:20px;
+font-size:22px;
+font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Gauss Seidel Method</h1>
+
+<div class="card">
+
+a1 <input id="a1"> b1 <input id="b1"> c1 <input id="c1"> d1 <input id="d1"><br>
+
+a2 <input id="a2"> b2 <input id="b2"> c2 <input id="c2"> d2 <input id="d2"><br>
+
+a3 <input id="a3"> b3 <input id="b3"> c3 <input id="c3"> d3 <input id="d3"><br>
+
+<button onclick="solve()">Solve</button>
+
+<div class="result" id="res"></div>
+
+</div>
+
+<script>
+
+function solve(){
+
+let a1=parseFloat(a1.value)
+let b1=parseFloat(b1.value)
+let c1=parseFloat(c1.value)
+let d1=parseFloat(d1.value)
+
+let a2=parseFloat(a2.value)
+let b2=parseFloat(b2.value)
+let c2=parseFloat(c2.value)
+let d2=parseFloat(d2.value)
+
+let a3=parseFloat(a3.value)
+let b3=parseFloat(b3.value)
+let c3=parseFloat(c3.value)
+let d3=parseFloat(d3.value)
+
+let x=0,y=0,z=0
+
+for(let i=0;i<10;i++){
+
+x=(d1-b1*y-c1*z)/a1
+y=(d2-a2*x-c2*z)/b2
+z=(d3-a3*x-b3*y)/c3
+
+}
+
+document.getElementById("res").innerHTML=
+"x="+x.toFixed(3)+" y="+y.toFixed(3)+" z="+z.toFixed(3)
+
+}
+
+</script>
+
+</body>
+</html>

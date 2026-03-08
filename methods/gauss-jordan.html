@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Gauss Jordan Solver</title>
+
+<style>
+
+body{
+font-family:Arial;
+text-align:center;
+background:linear-gradient(135deg,#1f4037,#99f2c8);
+margin:0;
+}
+
+h1{
+color:white;
+margin-top:40px;
+}
+
+.container{
+background:white;
+width:70%;
+margin:auto;
+padding:30px;
+margin-top:30px;
+border-radius:10px;
+box-shadow:0 10px 25px rgba(0,0,0,0.3);
+}
+
+input{
+padding:8px;
+margin:6px;
+width:70px;
+border-radius:6px;
+border:1px solid #ccc;
+}
+
+button{
+padding:10px 20px;
+background:#1f4037;
+color:white;
+border:none;
+border-radius:6px;
+cursor:pointer;
+}
+
+button:hover{
+background:#0f2027;
+}
+
+table{
+margin:auto;
+border-collapse:collapse;
+margin-top:20px;
+}
+
+td,th{
+border:1px solid #ddd;
+padding:10px;
+}
+
+#result{
+margin-top:20px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>Gauss Jordan Method Solver</h1>
+
+<div class="container">
+
+Number of Equations :
+<input type="number" id="n">
+
+<button onclick="createMatrix()">Create Matrix</button>
+
+<br><br>
+
+<div id="matrixArea"></div>
+
+<br>
+
+<button onclick="solve()">Solve</button>
+
+<h2>Result</h2>
+
+<div id="result"></div>
+
+</div>
+
+<script>
+
+function createMatrix(){
+
+let n=document.getElementById("n").value
+
+let table="<table>"
+
+for(let i=0;i<n;i++){
+
+table+="<tr>"
+
+for(let j=0;j<=n;j++){
+
+table+=`<td><input id="a${i}${j}"></td>`
+
+}
+
+table+="</tr>"
+
+}
+
+table+="</table>"
+
+document.getElementById("matrixArea").innerHTML=table
+
+}
+
+function solve(){
+
+let n=document.getElementById("n").value
+
+let a=[]
+
+for(let i=0;i<n;i++){
+
+a[i]=[]
+
+for(let j=0;j<=n;j++){
+
+a[i][j]=parseFloat(document.getElementById("a"+i+j).value)
+
+}
+
+}
+
+for(let i=0;i<n;i++){
+
+let pivot=a[i][i]
+
+for(let j=0;j<=n;j++)
+a[i][j]=a[i][j]/pivot
+
+for(let k=0;k<n;k++){
+
+if(k!=i){
+
+let factor=a[k][i]
+
+for(let j=0;j<=n;j++){
+
+a[k][j]=a[k][j]-factor*a[i][j]
+
+}
+
+}
+
+}
+
+}
+
+let output="<table>"
+
+output+="<tr><th>Variable</th><th>Value</th></tr>"
+
+for(let i=0;i<n;i++){
+
+output+=`<tr>
+<td>x${i+1}</td>
+<td>${a[i][n].toFixed(5)}</td>
+</tr>`
+
+}
+
+output+="</table>"
+
+document.getElementById("result").innerHTML=output
+
+}
+
+</script>
+
+</body>
+
+</html>

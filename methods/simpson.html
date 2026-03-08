@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Simpson Rule</title>
+
+<style>
+body{
+margin:0;
+font-family:Segoe UI, Arial;
+background:linear-gradient(135deg,#2f5e53,#8bd3a6);
+height:100vh;
+display:flex;
+flex-direction:column;
+align-items:center;
+}
+
+h1{
+color:white;
+margin-top:60px;
+font-size:40px;
+}
+
+.card{
+background:white;
+margin-top:40px;
+width:650px;
+padding:40px;
+border-radius:12px;
+box-shadow:0 10px 30px rgba(0,0,0,0.2);
+text-align:center;
+}
+
+input{
+padding:10px;
+margin:10px;
+border-radius:6px;
+border:1px solid #ccc;
+width:150px;
+}
+
+button{
+padding:10px 20px;
+background:#1f4b3e;
+color:white;
+border:none;
+border-radius:8px;
+cursor:pointer;
+}
+
+.result{
+margin-top:20px;
+font-size:22px;
+font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Simpson Rule</h1>
+
+<div class="card">
+
+f(x) <input id="func" placeholder="x*x"><br>
+
+a <input id="a">
+b <input id="b"><br>
+
+<button onclick="solve()">Solve</button>
+
+<div class="result" id="res"></div>
+
+</div>
+
+<script>
+
+function f(x){
+let func=document.getElementById("func").value
+return eval(func)
+}
+
+function solve(){
+
+let a=parseFloat(document.getElementById("a").value)
+let b=parseFloat(document.getElementById("b").value)
+
+let mid=(a+b)/2
+
+let result=(b-a)/6*(f(a)+4*f(mid)+f(b))
+
+document.getElementById("res").innerHTML="Result = "+result
+
+}
+
+</script>
+
+</body>
+</html>

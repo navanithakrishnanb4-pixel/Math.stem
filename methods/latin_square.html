@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Latin Square</title>
+
+<style>
+body{
+margin:0;
+font-family:Segoe UI;
+background:linear-gradient(135deg,#2f5e53,#8bd3a6);
+display:flex;
+flex-direction:column;
+align-items:center;
+height:100vh;
+}
+
+h1{
+color:white;
+margin-top:60px;
+}
+
+.card{
+background:white;
+padding:40px;
+width:650px;
+border-radius:12px;
+margin-top:40px;
+text-align:center;
+}
+
+input{
+padding:10px;
+margin:10px;
+width:250px;
+}
+
+button{
+padding:10px 20px;
+background:#1f4b3e;
+color:white;
+border:none;
+border-radius:8px;
+}
+
+.result{
+margin-top:20px;
+font-size:22px;
+font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Latin Square Method</h1>
+
+<div class="card">
+
+Enter values (example: 5 7 6,8 9 7,6 8 5)<br>
+
+<input id="data"><br>
+
+<button onclick="solve()">Calculate Mean</button>
+
+<div class="result" id="res"></div>
+
+</div>
+
+<script>
+
+function solve(){
+
+let rows=document.getElementById("data").value.split(",")
+
+let numbers=[]
+
+rows.forEach(r=>{
+r.trim().split(" ").forEach(n=>numbers.push(Number(n)))
+})
+
+let sum=numbers.reduce((a,b)=>a+b,0)
+
+let mean=sum/numbers.length
+
+document.getElementById("res").innerHTML="Mean = "+mean
+
+}
+
+</script>
+
+</body>
+</html>

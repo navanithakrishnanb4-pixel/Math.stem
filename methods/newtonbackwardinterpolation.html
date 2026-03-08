@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Newton Backward Interpolation</title>
+
+<style>
+
+body{
+font-family:Arial;
+text-align:center;
+background:linear-gradient(135deg,#1f4037,#99f2c8);
+margin:0;
+}
+
+h1{
+color:white;
+margin-top:40px;
+}
+
+.container{
+background:white;
+width:70%;
+margin:auto;
+padding:30px;
+margin-top:30px;
+border-radius:10px;
+box-shadow:0 10px 25px rgba(0,0,0,0.3);
+}
+
+input{
+padding:8px;
+margin:6px;
+width:120px;
+border-radius:6px;
+border:1px solid #ccc;
+}
+
+button{
+padding:10px 20px;
+background:#1f4037;
+color:white;
+border:none;
+border-radius:6px;
+cursor:pointer;
+}
+
+button:hover{
+background:#0f2027;
+}
+
+table{
+margin:auto;
+border-collapse:collapse;
+margin-top:20px;
+}
+
+td,th{
+border:1px solid #ddd;
+padding:10px;
+}
+
+#output{
+margin-top:20px;
+font-size:18px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>Newton Backward Interpolation</h1>
+
+<div class="container">
+
+Number of Data Points :
+<input type="number" id="points">
+<button onclick="createTable()">Create Table</button>
+
+<br><br>
+
+<div id="tableArea"></div>
+
+<br>
+
+Value of x to find y :
+<input id="xvalue">
+
+<br><br>
+
+<button onclick="solve()">Solve</button>
+
+<h2>Result</h2>
+
+<div id="output"></div>
+
+</div>
+
+<script>
+
+function createTable(){
+
+let n=document.getElementById("points").value
+
+let table="<table><tr><th>x</th><th>y</th></tr>"
+
+for(let i=0;i<n;i++){
+
+table+=`<tr>
+<td><input id="x${i}"></td>
+<td><input id="y${i}"></td>
+</tr>`
+
+}
+
+table+="</table>"
+
+document.getElementById("tableArea").innerHTML=table
+
+}
+
+function solve(){
+
+let n=document.getElementById("points").value
+
+let x=[]
+let y=[]
+
+for(let i=0;i<n;i++){
+
+x[i]=parseFloat(document.getElementById("x"+i).value)
+y[i]=parseFloat(document.getElementById("y"+i).value)
+
+}
+
+let value=parseFloat(document.getElementById("xvalue").value)
+
+let diff=[]
+for(let i=0;i<n;i++) diff[i]=[]
+
+for(let i=0;i<n;i++) diff[i][0]=y[i]
+
+for(let j=1;j<n;j++){
+
+for(let i=n-1;i>=j;i--){
+
+diff[i][j]=diff[i][j-1]-diff[i-1][j-1]
+
+}
+
+}
+
+let h=x[1]-x[0]
+let p=(value-x[n-1])/h
+
+let result=y[n-1]
+let pterm=1
+let fact=1
+
+for(let i=1;i<n;i++){
+
+pterm*= (p+i-1)
+fact*=i
+
+result+= (pterm*diff[n-1][i])/fact
+
+}
+
+document.getElementById("output").innerHTML=
+"<b>Interpolated Value = </b>"+result.toFixed(5)
+
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Runge Kutta 4th Order</title>
+
+<style>
+
+body{
+font-family:Arial;
+text-align:center;
+background:linear-gradient(135deg,#1f4037,#99f2c8);
+margin:0;
+}
+
+h1{
+color:white;
+margin-top:40px;
+}
+
+.container{
+background:white;
+width:70%;
+margin:auto;
+padding:30px;
+margin-top:30px;
+border-radius:10px;
+box-shadow:0 10px 25px rgba(0,0,0,0.3);
+}
+
+input{
+padding:8px;
+margin:6px;
+width:150px;
+border-radius:6px;
+border:1px solid #ccc;
+}
+
+button{
+padding:10px 20px;
+background:#1f4037;
+color:white;
+border:none;
+border-radius:6px;
+cursor:pointer;
+}
+
+button:hover{
+background:#0f2027;
+}
+
+#output{
+margin-top:20px;
+background:#f9f9f9;
+padding:20px;
+border-radius:8px;
+text-align:left;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>Runge Kutta 4th Order Method</h1>
+
+<div class="container">
+
+f(x,y) =
+<input id="func" placeholder="Example: x+y"><br><br>
+
+Initial x₀ :
+<input id="x0"><br><br>
+
+Initial y₀ :
+<input id="y0"><br><br>
+
+Step size (h) :
+<input id="h"><br><br>
+
+Iterations :
+<input id="n"><br><br>
+
+<button onclick="solve()">Solve</button>
+
+<h2>Calculation Steps</h2>
+
+<div id="output"></div>
+
+</div>
+
+<script>
+
+function f(x,y){
+let expr=document.getElementById("func").value
+return eval(expr)
+}
+
+function solve(){
+
+let x=parseFloat(document.getElementById("x0").value)
+let y=parseFloat(document.getElementById("y0").value)
+let h=parseFloat(document.getElementById("h").value)
+let n=parseInt(document.getElementById("n").value)
+
+let text=""
+
+for(let i=0;i<n;i++){
+
+let k1=h*f(x,y)
+let k2=h*f(x+h/2,y+k1/2)
+let k3=h*f(x+h/2,y+k2/2)
+let k4=h*f(x+h,y+k3)
+
+let dy=(k1+2*k2+2*k3+k4)/6
+
+text+=`<b>Step ${i+1}</b><br>`
+text+=`k1 = ${k1.toFixed(5)}<br>`
+text+=`k2 = ${k2.toFixed(5)}<br>`
+text+=`k3 = ${k3.toFixed(5)}<br>`
+text+=`k4 = ${k4.toFixed(5)}<br>`
+text+=`Δy = ${dy.toFixed(5)}<br>`
+
+y=y+dy
+x=x+h
+
+text+=`y(${x.toFixed(5)}) = ${y.toFixed(5)}<br><br>`
+
+}
+
+document.getElementById("output").innerHTML=text
+
+}
+
+</script>
+
+</body>
+</html>
+
